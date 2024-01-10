@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { ref, shallowRef } from 'vue';
 import sidebarItems from './vertical-sidebar/sidebarItem';
@@ -18,14 +19,16 @@ const sDrawer = ref(true);
     <!------Sidebar-------->
     <v-navigation-drawer left elevation="0"  app class="leftSidebar"  v-model="sDrawer">
         <!---Logo part -->
-        <div class="pa-5">
+        <div class="pt-5 pl-5 pr-5">
             <Logo />
+            <hr>
         </div>
+
         <!-- ---------------------------------------------- -->
         <!---Navigation -->
         <!-- ---------------------------------------------- -->
         <div>
-            <v-list class="pa-6">
+            <v-list class="pb-4 pl-4 pb-r">
                 <!---Menu Loop -->
                 <template v-for="(item, i) in sidebarMenu">
                     <!---Item Sub Header -->

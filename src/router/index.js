@@ -7,10 +7,10 @@ export default createRouter({
     routes: [
         {
             path: '/:pathMatch(.*)*',
-            component: () => import('@/views/pages/Error404.vue')
+            component: () => import('@/views/pages/Error404.vue'),
         },
         MainRoutes,
         ...AuthRoutes,
-    ]
+    ],
 });
 

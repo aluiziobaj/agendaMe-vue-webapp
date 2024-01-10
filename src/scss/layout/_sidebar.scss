@@ -6,6 +6,21 @@
         padding-left: 7px;
     }
 
+    img {
+        max-height:100%; 
+        max-width:100%;
+        object-fit: contain;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
     .mini-icon {
         display: none;
     }
@@ -98,6 +113,7 @@
             width: 40px;
             overflow: hidden;
             padding-left: 0;
+            background-color: green;
         }
 
         .mini-icon {
@@ -127,6 +143,7 @@
         .v-navigation-drawer--expand-on-hover:hover {
             .logo {
                 width: 100%;
+                background-color: purple;
             }
 
             .v-list .v-list-group__items,
