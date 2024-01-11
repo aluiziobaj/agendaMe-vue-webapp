@@ -1,63 +1,97 @@
 <template>
-    <v-form @submit.prevent="login()">
+    <v-form @submit.prevent="submit">
         <v-row class="d-flex mb-3">
             <v-col cols="12">
-                <v-alert v-if="feedbackMessage" color="error">{{feedbackMessage}}</v-alert>
+                <v-alert density="compact" icon="$error" v-if="feedbackMessage" color="error" 
+                >{{feedbackMessage}} </v-alert>
+                <v-alert density="compact" icon="$success" v-if="feedbackMessageSu" color="success" 
+                >{{feedbackMessageSu}} </v-alert>
             </v-col>
             <v-col cols="12">
                 <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                <v-text-field v-model="email" :rules="[rules.required, rules.email]" variant="outlined"  color="primary"></v-text-field>
+                <v-text-field v-model="email" :error-messages="errors.email" variant="outlined"  color="primary"></v-text-field>
             </v-col>
             <v-col cols="12">
                 <v-label class="font-weight-bold mb-1">Senha</v-label>
-                <v-text-field v-model="senha" :rules="[rules.required]" variant="outlined" type="password" color="primary"></v-text-field>
+                <v-text-field v-model="senha" :error-messages="errors.senha" variant="outlined" type="password" color="primary"></v-text-field>
             </v-col>
-            <v-col cols="12" class="pt-0">
-                <div class="d-flex flex-wrap align-center ml-n2">
+            <v-col cols="12" class="pt-0" >
+                <div class="d-flex flex-wrap ml-n2" style="float: right;">
                     <div class="ml-sm-auto">
                         <RouterLink to="/"
-                            class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium">EEsqueceu sua senha?</RouterLink>
+                            class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium">Esqueceu sua senha?</RouterLink>
                     </div>
                 </div>
             </v-col>
             <v-col cols="12" class="pt-0">
-                <v-btn type="submit" color="primary" size="large" block   flat>Entrar</v-btn>
+                <v-btn type="submit" :loading="isSubmitting" color="primary" size="large" block flat>Entrar</v-btn>
             </v-col>
         </v-row>
     </v-form>
 </template>
 
-
 <script setup lang="ts">
-import axios from 'axios';
 import {ref} from 'vue';
-axios.defaults.withCredentials = true;
-axios.defaults.withXSRFToken = true;
+import {string} from 'yup';
+import {useForm, useField} from 'vee-validate'
+import {useRouter} from 'vue-router'
+import { onMounted } from 'vue'
+import {useAuthStore} from '@/store/auth'
 
-/* axios.post('http://localhost:8080/login', {login: 'teste@laravue', password: '123456'}) */
-
-const email = ref('aluizio@estreladistribuidora.com.br');
-const senha = ref('123456');
+//const email = ref('aluizio@estreladistribuidora.com.br');
+//const senha = ref('123456');
 const feedbackMessage = ref('');
-const rules = {
-    required: value => !!value || 'Campo obrigatorio',
-    email: value => {
-    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return pattern.test(value) || 'E-mail invalido'
-    }
+const feedbackMessageSu = ref('');
+const authStore = useAuthStore();
+const router = useRouter();
+
+const schema = {
+    email: string().email().required().label('E-mail'),
+    senha: string().required().label('Senha'),
 }
 
-function login(){
-    axios.get('http://localhost:8080/csrf')
+const {handleSubmit, errors, isSubmitting}  = useForm ({
+   validationSchema: schema 
+})
+
+const submit = handleSubmit(async (values) => {
+    await login(values);
+})
+
+onMounted(() => {
+  email.value = 'aluizio@estreladistribuidora.com.br',
+  senha.value = '123456'
+})
+
+const {value: email} = useField('email');
+const {value: senha} = useField('senha');
+
+function login(values){
+    feedbackMessage.value = ''
+    feedbackMessageSu.value = ''
+
+    //axios.post('/loginPost', 'teste@laravue')
+    authStore
+    .token()
     .then(() => {
-        this.feedbackMessage = '';
-        axios.get('http://localhost:8080/login/' + this.email + '/' + this.senha)
+        authStore
+        .login(values.email, values.senha)
+        .then(() =>{
+            feedbackMessageSu.value = 'Login realizado com sucesso!'
+            router.push({path: '/'});
+        })       
         .catch(()=>{
             feedbackMessage.value = 'E-mail ou senha inválidos!'
-        })
+        });
     }).catch(()=>{
         feedbackMessage.value = 'Falha na comunicação com o servidor!'
-    });
+    })
 }
 
 </script>
+
+<style>
+    .v-alert {
+        font-size: 0.8em;
+    }
+</style>

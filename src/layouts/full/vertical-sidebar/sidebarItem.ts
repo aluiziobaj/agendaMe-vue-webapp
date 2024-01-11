@@ -1,7 +1,8 @@
 import {
     ApertureIcon,
     CopyIcon,
-    LayoutDashboardIcon, LoginIcon, MoodHappyIcon, TypographyIcon, UserPlusIcon
+    LayoutDashboardIcon, LoginIcon, LicenseIcon, TypographyIcon, UserPlusIcon, CashBanknoteIcon,
+    NotesIcon
 } from 'vue-tabler-icons';
 
 export interface menu {
@@ -26,39 +27,51 @@ const sidebarItem: menu[] = [
         icon: LayoutDashboardIcon,
         to: '/'
     },
-    { header: 'utilities' },
+    { header: 'vendas' },
     {
-        title: 'Typography',
-        icon: TypographyIcon,
-        to: '/ui/typography'
+        title: 'Pedido de Venda',
+        icon: NotesIcon,
+        to: '/login',
     },
     {
-        title: 'Shadow',
+        title: 'Notas Fiscais',
+        icon: LicenseIcon,
+        to: '/login'
+    },
+    { header: 'crediário' },
+    {
+        title: 'Motor de Credito',
+        icon: TypographyIcon,
+        to: '/login'
+    },
+    {
+        title: 'Propostas de Credito',
         icon: CopyIcon,
-        to: '/ui/shadow'
+        to: '/login'
+    },
+    { header: 'Financeiro' },
+    {
+        title: 'Conciliação',
+        icon: CashBanknoteIcon,
+        to: '/login'
+    },
+    {
+        title: 'Extrato Bancario',
+        icon: ApertureIcon,
+        to: '/login'
     },
     { header: 'auth' },
     {
         title: 'Login',
         icon: LoginIcon,
-        to: '/auth/login'
+        to: '/login'
     },
     {
-        title: 'Register',
+        title: 'Registrar',
         icon: UserPlusIcon,
         to: '/auth/register'
     },
-    { header: 'Extra' },
-    {
-        title: 'Icons',
-        icon: MoodHappyIcon,
-        to: '/icons'
-    },
-    {
-        title: 'Sample Page',
-        icon: ApertureIcon,
-        to: '/sample-page'
-    },
+
 ];
 
 export default sidebarItem;

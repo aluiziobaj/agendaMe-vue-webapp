@@ -35,14 +35,14 @@ const sDrawer = ref(true);
                     <NavGroup :item="item" v-if="item.header" :key="item.title" />
 
                     <!---Single Item-->
-                    <NavItem :item="item" v-else class="leftPadding" />
+                    <NavItem :item="item" v-if="!item.header" :key="item.title" class="leftPaddings"  />
                     <!---End Single Item-->
                 </template>
             </v-list>
             <div class="pa-4">
                 <ExtraBox />
             </div>
-    </div>
+        </div>
 
     </v-navigation-drawer>
     <!------Header-------->
@@ -65,3 +65,18 @@ const sDrawer = ref(true);
         </div>
     </v-app-bar>
 </template>
+
+<style>
+    .v-list-group__items .v-list-item,
+    .v-list-item {
+        .v-list-item__prepend {
+            margin-inline-end: 8px;
+        }
+
+        .v-list-item-title {
+            font-size: 0.8rem;
+        }
+    }
+
+
+</style>
