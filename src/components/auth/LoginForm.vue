@@ -35,7 +35,6 @@ import {ref} from 'vue';
 import {string} from 'yup';
 import {useForm, useField} from 'vee-validate'
 import {useRouter} from 'vue-router'
-import { onMounted } from 'vue'
 import {useAuthStore} from '@/store/auth'
 
 //const email = ref('aluizio@estreladistribuidora.com.br');
@@ -51,16 +50,15 @@ const schema = {
 }
 
 const {handleSubmit, errors, isSubmitting}  = useForm ({
-   validationSchema: schema 
+   validationSchema: schema ,
+   initialValues:{
+        email:'aluizio@estreladistribuidora.com.br',
+        senha: '123456'
+   }
 })
 
 const submit = handleSubmit(async (values) => {
     await login(values);
-})
-
-onMounted(() => {
-  email.value = 'aluizio@estreladistribuidora.com.br',
-  senha.value = '123456'
 })
 
 const {value: email} = useField('email');
@@ -70,12 +68,13 @@ function login(values){
     feedbackMessage.value = ''
     feedbackMessageSu.value = ''
 
-    //axios.post('/loginPost', 'teste@laravue')
     authStore
     .token()
     .then(() => {
         authStore
+        //.userLogged()
         .login(values.email, values.senha)
+        //.loginPost(response.data, values.email)
         .then(() =>{
             feedbackMessageSu.value = 'Login realizado com sucesso!'
             router.push({path: '/'});

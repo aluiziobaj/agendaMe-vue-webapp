@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { UserIcon, MailIcon, ListCheckIcon } from 'vue-tabler-icons';
-</script>
-
 <template>
     <!-- ---------------------------------------------- -->
     <!-- notifications DD -->
@@ -20,24 +16,38 @@ import { UserIcon, MailIcon, ListCheckIcon } from 'vue-tabler-icons';
                     <template v-slot:prepend>
                         <UserIcon stroke-width="1.5" size="20"/>
                     </template>
-                    <v-list-item-title class="pl-4 text-body-1">My Profile</v-list-item-title>
+                    <v-list-item-title class="pl-4 text-body-1">Perfil</v-list-item-title>
                 </v-list-item>
                 <v-list-item value="item2" color="primary">
                     <template v-slot:prepend>
                         <MailIcon stroke-width="1.5" size="20"/>
                     </template>
-                    <v-list-item-title  class="pl-4 text-body-1">My Account</v-list-item-title>
+                    <v-list-item-title  class="pl-4 text-body-1">Notificações</v-list-item-title>
                 </v-list-item>
                 <v-list-item value="item3" color="primary"> 
                     <template v-slot:prepend>
                         <ListCheckIcon stroke-width="1.5"  size="20"/>
                     </template>
-                    <v-list-item-title class="pl-4 text-body-1">My Task</v-list-item-title>
+                    <v-list-item-title class="pl-4 text-body-1">Tarefas</v-list-item-title>
                 </v-list-item>
             </v-list>
             <div class="pt-4 pb-4 px-5 text-center">
-                <v-btn to="/login" color="primary" variant="outlined" block>Logout</v-btn>
+                <v-btn @click="logout" to="/login" color="primary" block>Sair</v-btn>
             </div>
         </v-sheet>
     </v-menu>
 </template>
+
+<script setup>
+    import { UserIcon, MailIcon, ListCheckIcon } from 'vue-tabler-icons';
+    import { useAuthStore } from '@/store/auth';
+    import { useMeStore } from '@/store/me';
+
+    const authStore = useAuthStore();
+    const useMe = useMeStore();
+
+    async function logout(){
+        useMe.user = null;
+        await authStore.logout(); 
+    }
+</script>

@@ -7,10 +7,17 @@ import '@/scss/style.scss'
 import './plugins/yup'
 import './plugins/axios'
 import pinia from './plugins/pinia'
+import {useMeStore} from '@/store/me'
 
 const app = createApp(App)
-app
-.use(router)
-.use(vuetify)
 .use(pinia)
-.mount('#app')
+
+const meStore = useMeStore();
+
+meStore.verifyLoginState()
+    .finally(()=>{
+        app
+        .use(router)
+        .use(vuetify)
+        .mount('#app')
+    })
