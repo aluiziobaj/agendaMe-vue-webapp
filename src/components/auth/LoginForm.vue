@@ -68,22 +68,28 @@ function login(values){
     feedbackMessage.value = ''
     feedbackMessageSu.value = ''
 
+    let loginModel = {
+        login : null,
+        password : null
+    }
+
     authStore
     .token()
-    .then(() => {
+    .then(response => {
+        loginModel.login = values.email;
+        loginModel.password = values.senha;
+
         authStore
-        //.userLogged()
-        .login(values.email, values.senha)
-        //.loginPost(response.data, values.email)
+        .login(response.data, loginModel)
         .then(() =>{
             feedbackMessageSu.value = 'Login realizado com sucesso!'
             router.push({path: '/'});
         })       
         .catch(()=>{
-            feedbackMessage.value = 'E-mail ou senha inválidos!'
+            feedbackMessage.value = 'E-mail ou senha inválidos! '
         });
     }).catch(()=>{
-        feedbackMessage.value = 'Falha na comunicação com o servidor!'
+        feedbackMessage.value = 'Falha na comunicação com o servidor! '
     })
 }
 
