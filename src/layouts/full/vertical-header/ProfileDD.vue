@@ -31,8 +31,8 @@
                     <v-list-item-title class="pl-4 text-body-1">Tarefas</v-list-item-title>
                 </v-list-item>
             </v-list>
-            <div class="pt-4 pb-4 px-5 text-center">
-                <v-btn @click="logout" to="/login" color="primary" block>Sair</v-btn>
+            <div class="pt-4 pb-4 px-5 text-center" >
+                <v-btn @click="logout" to="/login" color="primary" block elevation="0">Sair</v-btn>
             </div>
         </v-sheet>
     </v-menu>

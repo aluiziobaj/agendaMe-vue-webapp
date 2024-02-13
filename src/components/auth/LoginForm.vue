@@ -7,13 +7,13 @@
                 <v-alert density="compact" icon="$success" v-if="feedbackMessageSu" color="success" 
                 >{{feedbackMessageSu}} </v-alert>
             </v-col>
-            <v-col cols="12">
+            <v-col cols="12" >
                 <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                <v-text-field v-model="email" :error-messages="errors.email" variant="outlined"  color="primary"></v-text-field>
+                <v-text-field v-model="email" :error-messages="errors.email" variant="outlined"  color="primary" ></v-text-field>
             </v-col>
             <v-col cols="12">
                 <v-label class="font-weight-bold mb-1">Senha</v-label>
-                <v-text-field v-model="senha" :error-messages="errors.senha" variant="outlined" type="password" color="primary"></v-text-field>
+                <v-text-field v-model="senha" :error-messages="errors.senha"  variant="outlined" type="password" color="primary"></v-text-field>
             </v-col>
             <v-col cols="12" class="pt-0" >
                 <div class="d-flex flex-wrap ml-n2" style="float: right;">
@@ -30,6 +30,12 @@
     </v-form>
 </template>
 
+<style scoped>
+    .v-alert {
+        font-size: 0.8em;
+    }
+
+</style>
 <script setup lang="ts">
 import {ref} from 'vue';
 import {string} from 'yup';
@@ -95,8 +101,3 @@ function login(values){
 
 </script>
 
-<style>
-    .v-alert {
-        font-size: 0.8em;
-    }
-</style>

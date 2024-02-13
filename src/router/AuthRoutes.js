@@ -1,4 +1,4 @@
-import {redirectIfAuthenticated} from '@/router//guards'
+import {redirectIfAuthenticated} from '@/router/guards'
 
 export default [
 {

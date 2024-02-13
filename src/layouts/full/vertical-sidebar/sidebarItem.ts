@@ -42,7 +42,7 @@ const sidebarItem: menu[] = [
     {
         title: 'Motor de Credito',
         icon: TypographyIcon,
-        to: '/login'
+        to: '/motorCredito'
     },
     {
         title: 'Propostas de Credito',
