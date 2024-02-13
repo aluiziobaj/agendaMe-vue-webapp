@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import Logo from '@/layouts/full/logo/Logo.vue';
-import RegisterForm from '@/components/auth/RegisterForm.vue';
-</script>
 <template>
     <div class="authentication">
         <v-container fluid class="pa-3">
@@ -27,3 +23,7 @@ import RegisterForm from '@/components/auth/RegisterForm.vue';
         </v-container>
     </div>
 </template>
+<script setup lang="ts">
+    import Logo from '@/layouts/full/logo/Logo.vue';
+    import RegisterForm from '@/components/auth/RegisterForm.vue';
+</script>

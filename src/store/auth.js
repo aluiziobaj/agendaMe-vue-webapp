@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth',{
         logout(){
             return axios.get('/logout')
         },
-        login(token, loginModel){
+        logar(token, loginModel){
             return axios.post('/login',loginModel, 
             {
                 header:{
@@ -24,6 +24,9 @@ export const useAuthStore = defineStore('auth',{
                 const meStore = useMeStore();
                 meStore.user = response.data;
             })
+        },
+        registrar(loginModel){
+            return axios.post('/create',loginModel);
         }
     },
 });

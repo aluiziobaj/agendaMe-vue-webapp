@@ -14,12 +14,11 @@ export default [
     ],
 },
 {
-    path: '/cadastrar',
+    path: '/registrar',
     component: () => import('@/layouts/blank/BlankLayout.vue'),
-    beforeEnter: redirectIfAuthenticated,
     children: [
         {
-            name: 'register',
+            name: 'registrar',
             path: '',
             component: () => import('@/views/auth/Register.vue')
         },

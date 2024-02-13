@@ -8,12 +8,12 @@
                 >{{feedbackMessageSu}} </v-alert>
             </v-col>
             <v-col cols="12" >
-                <v-label class="font-weight-bold mb-1">E-mail</v-label>
-                <v-text-field v-model="email" :error-messages="errors.email" variant="outlined"  color="primary" ></v-text-field>
+                <v-label class="font-weight-bold mb-1">Login</v-label>
+                <v-text-field v-model="login" :error-messages="errors.login" variant="outlined"  color="primary" ></v-text-field>
             </v-col>
             <v-col cols="12">
                 <v-label class="font-weight-bold mb-1">Senha</v-label>
-                <v-text-field v-model="senha" :error-messages="errors.senha"  variant="outlined" type="password" color="primary"></v-text-field>
+                <v-text-field v-model="password" :error-messages="errors.password"  variant="outlined" type="password" color="primary"></v-text-field>
             </v-col>
             <v-col cols="12" class="pt-0" >
                 <div class="d-flex flex-wrap ml-n2" style="float: right;">
@@ -51,26 +51,26 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const schema = {
-    email: string().email().required().label('E-mail'),
-    senha: string().required().label('Senha'),
+    login: string().email().required().label('Login'),
+    password: string().required().label('Senha'),
 }
 
 const {handleSubmit, errors, isSubmitting}  = useForm ({
    validationSchema: schema ,
    initialValues:{
-        email:'aluizio@estreladistribuidora.com.br',
-        senha: '123456'
+        login:'aluizio@estreladistribuidora.com.br',
+        password: '123456'
    }
 })
 
 const submit = handleSubmit(async (values) => {
-    await login(values);
+    await logar(values);
 })
 
-const {value: email} = useField('email');
-const {value: senha} = useField('senha');
+const {value: login} = useField('login');
+const {value: password} = useField('password');
 
-function login(values){
+function logar(values){
     feedbackMessage.value = ''
     feedbackMessageSu.value = ''
 
@@ -82,11 +82,11 @@ function login(values){
     authStore
     .token()
     .then(response => {
-        loginModel.login = values.email;
-        loginModel.password = values.senha;
+        loginModel.login = values.login;
+        loginModel.password = values.password;
 
         authStore
-        .login(response.data, loginModel)
+        .logar(response.data, loginModel)
         .then(() =>{
             feedbackMessageSu.value = 'Login realizado com sucesso!'
             router.push({path: '/'});
